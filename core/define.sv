@@ -1,27 +1,6 @@
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 15.11.2020 12:07:34
-// Design Name: 
-// Module Name: define
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-//
-//
 
 `define XLEN 32
-`define ADDR_LEN 1024 
+`define ADDR_LEN 2**32
 //OPCode[6:0]
 `define OP         7'b0110011 //Instruction : ADD,SUB,AND
 `define OP_IMM     7'b0010011 //Immediate Instruction : ADDI,SUBI,SULI
