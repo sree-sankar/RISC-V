@@ -1,0 +1,15 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Engineer: Sree Sankar E.
+// Create Date: 06.12.2020 11:31:51
+// Design Name: RISC V 32I
+// Project Name: RISC V Core
+// Revision: 1.0
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module top(input logic clk,rst);
+
+    risc_core RV32I_core(clk,rst);
+
+endmodule:top
