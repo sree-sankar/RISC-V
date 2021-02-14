@@ -14,8 +14,7 @@ module mem_access(input  logic clk,taken_branch,halt,
             mem_out <= 32'bx;
             mem_write_en   <= 1'b1; 
             case(instruction_in[6:0])
-                `OP,`OP_IMM,`LUI,`AUIPC  : begin mem_write_en   <= 1'b0; 
-                                                 mem_out        <= alu_in;
+                `OP,`OP_IMM,`LUI,`AUIPC  : begin mem_out        <= alu_in;
                                                  mem_write_en   <= 1'b0;   end                            
                 `LOAD       : begin       
                                mem_write_en   <= 1'b0;           
