@@ -1,6 +1,4 @@
-`timescale 1ns / 1ps
 `include "define.sv"
-
 
 module risc_core(input logic clk, rst);
     //PC------->IF
@@ -8,7 +6,7 @@ module risc_core(input logic clk, rst);
     //IF------->ID
     logic[`XLEN-1:0] IF_ID_Instr;
     //ID------->EX
-    logic[`XLEN-1:0] ID_EX_PC,ID_EX_Instr,ID_EX_rs1,ID_EX_rs2;
+    logic[`XLEN-1:0] ID_EX_PC,ID_EX_Instr,ID_EX_rs1,ID_EX_rs2, ID_EX_I_Type,ID_EX_S_Type,ID_EX_B_Type,ID_EX_U_Type,ID_EX_J_Type;
     //EX------->MEM
     logic[`XLEN-1:0] EX_MEM_Instr,EX_MEM_Out,EX_MEM_rs2,EX_PC_Branch_Addr;
     //MEM------>WB 
@@ -25,22 +23,33 @@ instr_fetch S0(.clk(clk),
                .taken_branch(TAKEN_BRANCH),
                .pc(PC),
                .next_pc(NPC),
-               .mem_read_en(MEM_READ_EN),
-               .reg_read_en(REG_READ_EN)
+                .mem_read_en(MEM_READ_EN),
+                .reg_read_en(REG_READ_EN)
                );
 //----------------------------------------------------- ID-->EX ------------------------------------------------------//
-instr_decode S1(.clk(clk),
+operand_fetch S1(.clk(clk),
                 .pc_in(PC),
                 .halt(HALT[1]),
                 .instruction_in(IF_ID_Instr),
                 .instruction_out(ID_EX_Instr),
-                .pc_out(ID_EX_PC));    
+                .pc_out(ID_EX_PC),
+                .imm_i_type(ID_EX_I_Type),
+                .imm_s_type(ID_EX_S_Type),
+                .imm_b_type(ID_EX_B_Type),
+                .imm_u_type(ID_EX_U_Type),
+                .imm_j_type(ID_EX_J_Type)
+               );    
 //----------------------------------------------------- EX-->MEM ------------------------------------------------------//
 instr_execute S2(.clk(clk),
                  .rst(rst),
                  .taken_branch(TAKEN_BRANCH),
                  .halt(HALT[2]),
                  .pc_in(ID_EX_PC),
+                 .imm_i_type(ID_EX_I_Type),
+                 .imm_s_type(ID_EX_S_Type),
+                 .imm_b_type(ID_EX_B_Type),
+                 .imm_u_type(ID_EX_U_Type),
+                 .imm_j_type(ID_EX_J_Type),
                  .instruction_in(ID_EX_Instr),
                  .rs1(ID_EX_rs1),
                  .rs2(ID_EX_rs2),
@@ -73,7 +82,7 @@ write_back S4(.clk(clk),
               .reg_write_en(REG_WRITE_EN)
               );
 //-------------------------------------------------- Register Memory -----------------------------------------------------//
-reg_memory Reg_Mem(.clk(clk),
+reg_memory Reg_Read_Write(.clk(clk),
                    .read_en(REG_READ_EN),
                    .write_en(REG_WRITE_EN),
                    .rs1_addr(ID_EX_Instr[19:15]),
