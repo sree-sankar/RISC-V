@@ -1,4 +1,3 @@
-`timescale 1ns / 1ps
 `include "define.sv"
 
 module main_memory(input logic clk,read_en,write_en,
