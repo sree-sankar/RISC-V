@@ -5,12 +5,9 @@
 module operand_fetch( input  logic clk,halt,
                      input  logic [`XLEN-1:0] pc_in,instruction_in,
                      output logic [`XLEN-1:0] instruction_out, pc_out,
-                     output logic [`XLEN-1:0] imm_i_type,imm_s_type,imm_b_type,imm_u_type,imm_j_type,
-                     output logic mem_read_en,reg_read_en);                    
+                     output logic [`XLEN-1:0] imm_i_type,imm_s_type,imm_b_type,imm_u_type,imm_j_type);                    
 
-        assign mem_read_en = 1;
-        assign reg_read_en = 1;
-        
+      
  always_ff @(posedge clk)
     begin
         if(halt == 1'b0)begin
