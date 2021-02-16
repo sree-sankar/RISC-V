@@ -1,4 +1,3 @@
-`timescale 1ns / 1ps
 `include "define.sv"
 
 module halt_control(input logic clk,rst,taken_branch,
