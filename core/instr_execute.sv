@@ -90,13 +90,13 @@ module instr_execute(
 //---------------------JAL------------------------------//
             `JAL   : begin
                        branch_comb_en <= 1'b1;
-                       alu_comb_out     <= pc_in + 4;
+                       alu_comb_out     <= pc_in + 1;
                        branch_addr      <= pc_in +{{12{instruction_in[31]}},instruction_in[31:12]};
                      end
 //---------------------JALR------------------------------//
             `JALR  :  begin
                        branch_comb_en <= 1'b1;
-                       alu_comb_out     <= pc_in + 4;
+                       alu_comb_out     <= pc_in + 1;
                        branch_comb_addr <= (rs1 +{{20{instruction_in[31]}},instruction_in[31:21], 1'b0});
                      end
 //---------------------LOAD------------------------------//
