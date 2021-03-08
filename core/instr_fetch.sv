@@ -12,7 +12,7 @@ module instr_fetch(
     begin
          if(!rst) begin
             pc              <= 0;
-            next_pc         <= 4;
+            next_pc         <= 1;
             taken_branch    <= 1'b0;
             mem_read_en     <= 1'b1;
             reg_read_en     <= 1'b1;
@@ -21,12 +21,12 @@ module instr_fetch(
 
             if(halt == 1'b0 && branch_en == 1'b1 ) begin
                pc           <= branch_addr;
-               next_pc      <= branch_addr + 4;
+               next_pc      <= branch_addr + 1;
                taken_branch <= 1'b1;end 
                
             else if(halt == 1'b0 && branch_en == 1'b0 )begin
                pc           <= next_pc;
-               next_pc      <= next_pc + 4;
+               next_pc      <= next_pc + 1;
                taken_branch <= 1'b0; end  
          end
          
