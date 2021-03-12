@@ -18,8 +18,5 @@ module operand_fetch( input  logic clk,halt,
             imm_u_type <= {instruction_in[31:12], 12'b0};
             imm_j_type <= {{12{instruction_in[31]}},instruction_in[19:12],instruction_in[20],instruction_in[30:21],1'b0};
         end
-        else begin
-            instruction_out <= 32'bx;
-        end
     end
 endmodule:operand_fetch
