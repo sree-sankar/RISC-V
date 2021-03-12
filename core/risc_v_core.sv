@@ -105,8 +105,10 @@ main_memory Mem_Fetch_Access(.clk(clk),
 halt_control HC(.clk(clk),
                 .rst(rst), 
                 .halt(HALT),
-                .mem_wb_instr(EX_MEM_Instr),
+                .if_id_instr(IF_ID_Instr),
                 .id_ex_instr(ID_EX_Instr),
+                .ex_mem_instr(EX_MEM_Instr),
+                .mem_wb_instr(MEM_WB_Instr),
                 .taken_branch(TAKEN_BRANCH));
 endmodule:risc_core
 
