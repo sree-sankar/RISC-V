@@ -15,16 +15,14 @@
 
 //-----------------Function 3 [14:12]---------------------------//
 //OP
-`define FN3_ADD    3'b000 //ADD
-`define FN3_SUB    3'b000 //SUB
-`define FN3_SLL    3'b001 //Shift Left Logic
-`define FN3_SLT    3'b010 //Compare signed
-`define FN3_SLTU   3'b011 //Compare unsigned
-`define FN3_XOR    3'b100 //XOR
-`define FN3_SRL    3'b101 //Shift Right Logic
-`define FN3_SRA    3'b101 //Shift Right Arithmetic
-`define FN3_OR     3'b110 //OR
-`define FN3_AND    3'b111 //AND
+`define FN3_ADD_SUB    3'b000 //ADD_SUB
+`define FN3_SLL        3'b001 //Shift Left Logic
+`define FN3_SLT        3'b010 //Compare signed
+`define FN3_SLTU       3'b011 //Compare unsigned
+`define FN3_XOR        3'b100 //XOR
+`define FN3_SRL_SRA    3'b101 //Shift Right Logic & Shift Right Arithmetic
+`define FN3_OR         3'b110 //OR
+`define FN3_AND        3'b111 //AND
 //Immediate
 `define FN3_ADDI   3'b000 //ADD 
 `define FN3_SLTI   3'b010 //Compare 
