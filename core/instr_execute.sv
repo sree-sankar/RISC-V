@@ -40,24 +40,19 @@ module instr_execute(
             case(instruction_in[6:0])
 //---------------------OP------------------------------//
             `OP:begin
-                if(instruction_in[31:25] == `FN7_F1)begin
-                    case(instruction_in[14:12])
-                        `FN3_ADD  : alu_comb_out  <= rs1 + rs2;
-                        `FN3_SLL  : alu_comb_out  <= rs1 << rs2[4:0];
-                        `FN3_SLT  : alu_comb_out  <= rs1 < rs2;
-                        `FN3_SLTU : alu_comb_out  <= $unsigned(rs1) < $unsigned(rs2);
-                        `FN3_XOR  : alu_comb_out  <= rs1 ^ rs2;
-                        `FN3_SRL  : alu_comb_out  <= rs1 >> rs2[4:0];
-                        `FN3_OR   : alu_comb_out  <= rs1 | rs2;
-                        `FN3_AND  : alu_comb_out  <= rs1 & rs2;
-                    endcase end
-                    
-                else if(instruction_in[31:25] == `FN7_F2) begin
-                     case(instruction_in[14:12])
-                        `FN3_SUB  : alu_comb_out <= rs1 - rs2;
-                        `FN3_SRA  : alu_comb_out <= rs1 >>> rs2[4:0];
-                     endcase end
-                end
+                case(instruction_in[14:12])
+                   `FN3_ADD_SUB  : alu_comb_out  <= (instruction_in[31:25] == `FN7_F1) ?  (rs1 + rs2) :
+                                                    (instruction_in[31:25] == `FN7_F2) ?  (rs1 - rs2) : 32'bx;
+                   `FN3_SLL      : alu_comb_out  <= rs1 << rs2[4:0];
+                   `FN3_SLT      : alu_comb_out  <= rs1 < rs2;
+                   `FN3_SLTU     : alu_comb_out  <= $unsigned(rs1) < $unsigned(rs2);
+                   `FN3_XOR      : alu_comb_out  <= rs1 ^ rs2;
+                   `FN3_SRL_SRA  : alu_comb_out  <= (instruction_in[31:25] == `FN7_F1) ?  rs1 >> rs2[4:0]  :
+                                                    (instruction_in[31:25] == `FN7_F2) ?  rs1 >>> rs2[4:0] : 32'bx;
+                   `FN3_OR       : alu_comb_out  <= rs1 | rs2;
+                   `FN3_AND      : alu_comb_out  <= rs1 & rs2;
+                endcase
+               end
 //------------------------------------OP_IMM----------------------------------------//
             `OP_IMM:begin
                 case(instruction_in[14:12])   
